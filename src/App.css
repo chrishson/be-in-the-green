@@ -1,38 +1,24 @@
-.App {
-  text-align: center;
+.container {
+  display: grid;
+  grid-template: 50px 1fr / 1fr;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.main {
+  padding: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.createLiabilityForm {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.createExpenseAccountForm {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
 }
 
-.App-link {
-  color: #61dafb;
+.expenseAccountsList {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
