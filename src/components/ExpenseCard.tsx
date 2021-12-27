@@ -1,24 +1,11 @@
 import {useState} from "react";
+import {Expense, Entry} from "../App"
 import {ExpenseCardHeader} from "./ExpenseCardHeader";
 import {ExpenseCardSummary} from "./ExpenseCardSummary";
 import {ExpenseCardNewEntry} from "./ExpenseCardNewEntry";
 
 interface Props {
     expense: Expense
-}
-
-interface Expense {
-    name: string,
-    id: string,
-    budget: number
-    entries: Entry[]
-}
-
-export interface Entry {
-    id: string,
-    category: string,
-    note: string,
-    spend_amount: number
 }
 
 export const ExpenseCard = (props: Props) => {

@@ -1,5 +1,5 @@
 import {Dispatch, SetStateAction} from "react";
-import {Entry} from "./ExpenseCard";
+import {Entry} from "../App";
 import {Breakdown, ExpenseEntry} from "./ExpenseCardSummary.styles";
 
 interface Props {
@@ -10,11 +10,11 @@ interface Props {
 export const ExpenseCardSummary = ({entriesData, setChosenExpense}: Props) => {
 
     const aggregatedSpendStreamMockData = () => {
-        return entriesData.reduce((aggregate: { [key: string]: number }, spendStreamItem: Entry) => {
+        return entriesData.reduce((aggregate: { [key: string]: number }, entry: Entry) => {
 
-            aggregate[spendStreamItem.category] = aggregate[spendStreamItem.category] ?
-                aggregate[spendStreamItem.category] + spendStreamItem.spend_amount :
-                spendStreamItem.spend_amount;
+            aggregate[entry.category] = aggregate[entry.category] ?
+                aggregate[entry.category] + entry.spend_amount :
+                entry.spend_amount;
 
             return aggregate;
         }, {})
@@ -24,14 +24,14 @@ export const ExpenseCardSummary = ({entriesData, setChosenExpense}: Props) => {
         <Breakdown>
             <h3> Breakdown </h3>
             {
-                Object.entries(aggregatedSpendStreamMockData()).map((spendEntry: [string, number], index) => {
+                Object.entries(aggregatedSpendStreamMockData()).map((entry: [string, number], index) => {
                     return <ExpenseEntry key={index}>
                         <div>
-                            {spendEntry[0]}
+                            {entry[0]}
                         </div>
                         <div>
-                            ${spendEntry[1]}
-                            <button onClick={() => {setChosenExpense(spendEntry[0])}}>
+                            ${entry[1]}
+                            <button onClick={() => {setChosenExpense(entry[0])}}>
                                 +
                             </button>
                         </div>

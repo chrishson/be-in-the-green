@@ -1,4 +1,4 @@
-import {Entry} from "./ExpenseCard"
+import {Entry} from "../App"
 import {BottomSection, Header, ProgressBar, TopSection} from "./ExpenseCardHeader.styles";
 
 interface Props {
@@ -13,8 +13,8 @@ interface Props {
 export const ExpenseCardHeader = ({entriesData, expenseData}: Props) => {
 
     const totalSpentDollar = () => {
-        return entriesData.reduce((aggregate: number, spendStreamItem: Entry) => {
-            return aggregate + spendStreamItem.spend_amount;
+        return entriesData.reduce((aggregate: number, entry: Entry) => {
+            return aggregate + entry.spend_amount;
         }, 0)
     }
 

@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction, useState} from "react";
-import {Entry} from "./ExpenseCard";
+import {Entry} from "../App";
 
 interface Props {
     setEntriesData: Dispatch<SetStateAction<Entry[]>>,
