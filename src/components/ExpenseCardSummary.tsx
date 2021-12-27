@@ -1,20 +1,20 @@
 import {Dispatch, SetStateAction} from "react";
-import {spendStreamItem} from "./ExpenseCard";
+import {Entry} from "./ExpenseCard";
 import {Breakdown, ExpenseEntry} from "./ExpenseCardSummary.styles";
 
 interface Props {
-    spendStreamData: spendStreamItem[],
+    entriesData: Entry[],
     setChosenExpense: Dispatch<SetStateAction<string>>
 }
 
-export const ExpenseCardSummary = ({spendStreamData, setChosenExpense}: Props) => {
+export const ExpenseCardSummary = ({entriesData, setChosenExpense}: Props) => {
 
     const aggregatedSpendStreamMockData = () => {
-        return spendStreamData.reduce((aggregate: { [key: string]: number }, spendStreamItem: spendStreamItem) => {
+        return entriesData.reduce((aggregate: { [key: string]: number }, spendStreamItem: Entry) => {
 
-            aggregate[spendStreamItem.name] = aggregate[spendStreamItem.name] ?
-                aggregate[spendStreamItem.name] + spendStreamItem.spendAmount :
-                spendStreamItem.spendAmount;
+            aggregate[spendStreamItem.category] = aggregate[spendStreamItem.category] ?
+                aggregate[spendStreamItem.category] + spendStreamItem.spend_amount :
+                spendStreamItem.spend_amount;
 
             return aggregate;
         }, {})

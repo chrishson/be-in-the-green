@@ -1,23 +1,23 @@
 import React, {Dispatch, SetStateAction, useState} from "react";
-import {spendStreamItem} from "./ExpenseCard";
+import {Entry} from "./ExpenseCard";
 
 interface Props {
-    setSpendStreamData: Dispatch<SetStateAction<spendStreamItem[]>>,
-    spendStreamData: spendStreamItem[],
+    setEntriesData: Dispatch<SetStateAction<Entry[]>>,
+    entriesData: Entry[],
     chosenExpense: string
 }
 
-export const ExpenseCardNewEntry = ({spendStreamData, setSpendStreamData, chosenExpense}: Props) => {
+export const ExpenseCardNewEntry = ({entriesData, setEntriesData, chosenExpense}: Props) => {
 
     const [note, setNote] = useState<string>("")
     const [amount, setAmount] = useState<string>("")
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        setSpendStreamData([...spendStreamData, {
-            expenseId: 1,
-            name: chosenExpense,
-            spendAmount: parseInt(amount),
+        setEntriesData([...entriesData, {
+            id: "test-guid",
+            category: chosenExpense,
+            spend_amount: parseInt(amount),
             note: note
         }])
     }

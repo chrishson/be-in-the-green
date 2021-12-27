@@ -1,20 +1,20 @@
-import React from "react";
-import {spendStreamItem} from "./ExpenseCard"
+import {Entry} from "./ExpenseCard"
 import {BottomSection, Header, ProgressBar, TopSection} from "./ExpenseCardHeader.styles";
 
 interface Props {
-    spendStreamData: spendStreamItem[],
+    entriesData: Entry[],
     expenseData: {
         name: string;
         budget: number;
+        entries: Entry[]
     }
 }
 
-export const ExpenseCardHeader = ({spendStreamData, expenseData}: Props) => {
+export const ExpenseCardHeader = ({entriesData, expenseData}: Props) => {
 
     const totalSpentDollar = () => {
-        return spendStreamData.reduce((aggregate: number, spendStreamItem: spendStreamItem) => {
-            return aggregate + spendStreamItem.spendAmount;
+        return entriesData.reduce((aggregate: number, spendStreamItem: Entry) => {
+            return aggregate + spendStreamItem.spend_amount;
         }, 0)
     }
 

@@ -3,57 +3,35 @@ import {ExpenseCardHeader} from "./ExpenseCardHeader";
 import {ExpenseCardSummary} from "./ExpenseCardSummary";
 import {ExpenseCardNewEntry} from "./ExpenseCardNewEntry";
 
+interface Props {
+    expense: Expense
+}
+
 interface Expense {
     name: string,
-    id: number,
+    id: string,
     budget: number
+    entries: Entry[]
 }
 
-export interface spendStreamItem {
-    expenseId: number,
-    name: string,
-    spendAmount: number,
-    note: string
+export interface Entry {
+    id: string,
+    category: string,
+    note: string,
+    spend_amount: number
 }
 
-const expenseMockData = {
-    id: 1,
-    name: 'Couples Budget',
-    budget: 1000
-};
-
-const spendStreamMockData = [
-    {
-        expenseId: 1,
-        name: 'Food',
-        spendAmount: 50,
-        note: 'Bought Taco Bell'
-    },
-    {
-        expenseId: 1,
-        name: 'Food',
-        spendAmount: 50,
-        note: 'Samsoonie'
-    },
-    {
-        expenseId: 1,
-        name: 'Entertainment',
-        spendAmount: 20,
-        note: 'badminton'
-    }
-]
-
-export const ExpenseCard = () => {
-    const [expenseData] = useState<Expense>(expenseMockData)
-    const [spendStreamData, setSpendStreamData] = useState<spendStreamItem[]>(spendStreamMockData)
+export const ExpenseCard = (props: Props) => {
+    const [expenseData] = useState<Expense>(props.expense)
+    const [entriesData, setEntriesData] = useState<Entry[]>(props.expense.entries)
     const [chosenExpense, setChosenExpense] = useState<string>("")
 
     return (
         <div>
-            <ExpenseCardHeader {...{expenseData, spendStreamData}}/>
+            <ExpenseCardHeader {...{expenseData, entriesData}}/>
             <main>
-                <ExpenseCardSummary {...{spendStreamData, setChosenExpense}}/>
-                <ExpenseCardNewEntry {...{setSpendStreamData, spendStreamData, chosenExpense}}/>
+                <ExpenseCardSummary {...{entriesData, setChosenExpense}}/>
+                <ExpenseCardNewEntry {...{setEntriesData, entriesData, chosenExpense}}/>
             </main>
         </div>
     )
