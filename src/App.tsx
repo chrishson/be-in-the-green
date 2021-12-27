@@ -59,7 +59,7 @@ function App() {
     <div className="container">
       <main className="main">
           {
-           isSuccess && expenses && <ExpenseCard expense={expenses[0]}/>
+           isSuccess && expenses && <ExpenseCard {...expenses[0]}/>
           }
       </main>
     </div>

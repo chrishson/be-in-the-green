@@ -4,18 +4,16 @@ import {ExpenseCardHeader} from "./ExpenseCardHeader";
 import {ExpenseCardSummary} from "./ExpenseCardSummary";
 import {ExpenseCardNewEntry} from "./ExpenseCardNewEntry";
 
-interface Props {
-    expense: Expense
-}
-
-export const ExpenseCard = (props: Props) => {
-    const [expenseData] = useState<Expense>(props.expense)
-    const [entriesData, setEntriesData] = useState<Entry[]>(props.expense.entries)
+export const ExpenseCard = (expense: Expense) => {
+    const [expenseData] = useState<Expense>(expense)
+    const [entriesData, setEntriesData] = useState<Entry[]>(expense.entries)
     const [chosenExpense, setChosenExpense] = useState<string>("")
+
+    console.log(expenseData, )
 
     return (
         <div>
-            <ExpenseCardHeader {...{expenseData, entriesData}}/>
+            <ExpenseCardHeader {...expenseData}/>
             <main>
                 <ExpenseCardSummary {...{entriesData, setChosenExpense}}/>
                 <ExpenseCardNewEntry {...{setEntriesData, entriesData, chosenExpense}}/>
