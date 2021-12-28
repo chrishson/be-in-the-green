@@ -5,15 +5,15 @@ import {ExpenseCardSummary} from "./ExpenseCardSummary";
 import {ExpenseCardNewEntry} from "./ExpenseCardNewEntry";
 
 export const ExpenseCard = (expense: Expense) => {
-    const [chosenExpense, setChosenExpense] = useState<string>("")
+    const [selectedCategory, setSelectedCategory] = useState<string>("")
     
     return (
         <div>
             <ExpenseCardHeader {...expense}/>
             <main>
-                <ExpenseCardSummary {...{expense, setChosenExpense}}/>
+                <ExpenseCardSummary {...{expense, setSelectedCategory}}/>
                 {
-                    chosenExpense && <ExpenseCardNewEntry {...{expense, chosenExpense}}/>
+                    selectedCategory && <ExpenseCardNewEntry {...{expense, selectedCategory}}/>
                 }
             </main>
         </div>

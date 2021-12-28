@@ -4,10 +4,10 @@ import {Breakdown, ExpenseEntry} from "./ExpenseCardSummary.styles";
 
 interface Props {
     expense: Expense,
-    setChosenExpense: Dispatch<SetStateAction<string>>
+    setSelectedCategory: Dispatch<SetStateAction<string>>
 }
 
-export const ExpenseCardSummary = ({expense, setChosenExpense}: Props) => {
+export const ExpenseCardSummary = ({expense, setSelectedCategory}: Props) => {
 
     const aggregatedSpendStreamMockData = () => {
         return expense.entries.reduce((aggregate: { [key: string]: number }, entry: Entry) => {
@@ -31,7 +31,7 @@ export const ExpenseCardSummary = ({expense, setChosenExpense}: Props) => {
                         </div>
                         <div>
                             ${entry[1]}
-                            <button onClick={() => {setChosenExpense(entry[0])}}>
+                            <button onClick={() => {setSelectedCategory(entry[0])}}>
                                 +
                             </button>
                         </div>

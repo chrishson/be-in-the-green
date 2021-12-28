@@ -5,11 +5,11 @@ import {Entry, Expense} from "../App";
 interface Props {
     setEntriesData?: Dispatch<SetStateAction<Entry[]>>,
     expense: Expense,
-    chosenExpense: string
+    selectedCategory: string
 }
 
 
-export const ExpenseCardNewEntry = ({expense, chosenExpense}: Props) => {
+export const ExpenseCardNewEntry = ({expense, selectedCategory}: Props) => {
 
     const [note, setNote] = useState<string>("")
     const [amount, setAmount] = useState<string>("")
@@ -61,7 +61,7 @@ export const ExpenseCardNewEntry = ({expense, chosenExpense}: Props) => {
         e.preventDefault()
         mutate({
             expense_id: expense.id,
-            category: chosenExpense,
+            category: selectedCategory,
             spend_amount: parseInt(amount),
             note: note
         })
@@ -69,7 +69,7 @@ export const ExpenseCardNewEntry = ({expense, chosenExpense}: Props) => {
 
     return (
         <div>
-            <h3>{`New Entry For: ${chosenExpense}`}</h3>
+            <h3>{`New Entry For: ${selectedCategory}`}</h3>
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>
