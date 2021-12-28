@@ -12,7 +12,9 @@ export const ExpenseCard = (expense: Expense) => {
             <ExpenseCardHeader {...expense}/>
             <main>
                 <ExpenseCardSummary {...{expense, setChosenExpense}}/>
-                <ExpenseCardNewEntry {...{expense, chosenExpense}}/>
+                {
+                    chosenExpense && <ExpenseCardNewEntry {...{expense, chosenExpense}}/>
+                }
             </main>
         </div>
     )
