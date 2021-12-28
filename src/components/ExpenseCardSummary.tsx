@@ -1,16 +1,16 @@
 import {Dispatch, SetStateAction} from "react";
-import {Entry} from "../App";
+import {Entry, Expense} from "../App";
 import {Breakdown, ExpenseEntry} from "./ExpenseCardSummary.styles";
 
 interface Props {
-    entriesData: Entry[],
+    expense: Expense,
     setChosenExpense: Dispatch<SetStateAction<string>>
 }
 
-export const ExpenseCardSummary = ({entriesData, setChosenExpense}: Props) => {
+export const ExpenseCardSummary = ({expense, setChosenExpense}: Props) => {
 
     const aggregatedSpendStreamMockData = () => {
-        return entriesData.reduce((aggregate: { [key: string]: number }, entry: Entry) => {
+        return expense.entries.reduce((aggregate: { [key: string]: number }, entry: Entry) => {
 
             aggregate[entry.category] = aggregate[entry.category] ?
                 aggregate[entry.category] + entry.spend_amount :

@@ -1,7 +1,7 @@
 import {Entry, Expense} from "../App"
 import {BottomSection, Header, ProgressBar, TopSection} from "./ExpenseCardHeader.styles";
 
-export const ExpenseCardHeader = (expenseData: Expense) => {
+export const ExpenseCardHeader = (expense: Expense) => {
     
     const totalSpentDollar = (entries: Entry[]) => {
         return entries.reduce((aggregate: number, entry: Entry) => {
@@ -10,18 +10,18 @@ export const ExpenseCardHeader = (expenseData: Expense) => {
     }
 
     const totalSpentPercentage = () => {
-        return (totalSpentDollar(expenseData.entries) / expenseData.budget) * 100;
+        return (totalSpentDollar(expense.entries) / expense.budget) * 100;
     }
 
     const totalAvailableSpend = () => {
-        return expenseData.budget - totalSpentDollar(expenseData.entries);
+        return expense.budget - totalSpentDollar(expense.entries);
     }
 
     return (
         <Header>
             <TopSection>
                 <div>
-                    <h2>{expenseData.name}</h2>
+                    <h2>{expense.name}</h2>
                 </div>
                 <div>
                     <p> {`$${totalAvailableSpend()} Left`}</p>
@@ -29,7 +29,7 @@ export const ExpenseCardHeader = (expenseData: Expense) => {
             </TopSection>
             <BottomSection>
                 <ProgressBar id="determinate"  value={totalSpentPercentage()} max="100"/>
-                <div> {`Spent $${totalSpentDollar(expenseData.entries)}`}</div>
+                <div> {`Spent $${totalSpentDollar(expense.entries)}`}</div>
             </BottomSection>
         </Header>
     )

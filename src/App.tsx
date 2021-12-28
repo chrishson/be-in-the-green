@@ -3,10 +3,11 @@ import './App.css';
 import { ExpenseCard } from './components/ExpenseCard';
 
 export interface Entry {
-  id: string,
+  id?: string,
   category: string,
   note: string,
-  spend_amount: number
+  spend_amount: number,
+  expense_id: string
 }
 
 export interface Expense {
@@ -20,7 +21,7 @@ function App() {
 
   const EXPENSES_KEY = "expenses";
 
-  const { isSuccess, data: expenses, isError, error } = useQuery<Expense[], Error>(EXPENSES_KEY, () =>
+  const { isSuccess, data: expenses, isLoading, isError, error } = useQuery<Expense[], Error>(EXPENSES_KEY, () =>
     fetch(process.env.REACT_APP_HASURA_API as string, {
       method: "POST",
       headers: {
@@ -53,6 +54,10 @@ function App() {
 
   if (isError) {
     return <span>Error: {error?.message}</span>;
+  }
+
+  if (isLoading) {
+    return <span>Loading...</span>;
   }
 
   return (
