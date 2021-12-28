@@ -51,9 +51,7 @@ export const ExpenseCardNewEntry = ({expense, chosenExpense}: Props) => {
           })
             .then((res) => res.json())
             .then((res) => res.data), {
-                //  This must be refactored so that entries is its own entity. not based off of expenses.
                 onSuccess: ({insert_entries_one}) => {
-                    console.log(insert_entries_one.expense)
                     queryClient.setQueryData("expenses", [insert_entries_one.expense])
                   },
             }
