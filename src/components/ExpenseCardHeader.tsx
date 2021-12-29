@@ -1,36 +1,27 @@
-import React from "react";
-import {spendStreamItem} from "./ExpenseCard"
+import {Entry, Expense} from "../App"
 import {BottomSection, Header, ProgressBar, TopSection} from "./ExpenseCardHeader.styles";
 
-interface Props {
-    spendStreamData: spendStreamItem[],
-    expenseData: {
-        name: string;
-        budget: number;
-    }
-}
-
-export const ExpenseCardHeader = ({spendStreamData, expenseData}: Props) => {
-
-    const totalSpentDollar = () => {
-        return spendStreamData.reduce((aggregate: number, spendStreamItem: spendStreamItem) => {
-            return aggregate + spendStreamItem.spendAmount;
+export const ExpenseCardHeader = (expense: Expense) => {
+    
+    const totalSpentDollar = (entries: Entry[]) => {
+        return entries.reduce((aggregate: number, entry: Entry) => {
+            return aggregate + entry.spend_amount;
         }, 0)
     }
 
     const totalSpentPercentage = () => {
-        return (totalSpentDollar() / expenseData.budget) * 100;
+        return (totalSpentDollar(expense.entries) / expense.budget) * 100;
     }
 
     const totalAvailableSpend = () => {
-        return expenseData.budget - totalSpentDollar();
+        return expense.budget - totalSpentDollar(expense.entries);
     }
 
     return (
         <Header>
             <TopSection>
                 <div>
-                    <h2>{expenseData.name}</h2>
+                    <h2>{expense.name}</h2>
                 </div>
                 <div>
                     <p> {`$${totalAvailableSpend()} Left`}</p>
@@ -38,7 +29,7 @@ export const ExpenseCardHeader = ({spendStreamData, expenseData}: Props) => {
             </TopSection>
             <BottomSection>
                 <ProgressBar id="determinate"  value={totalSpentPercentage()} max="100"/>
-                <div> {`Spent $${totalSpentDollar()}`}</div>
+                <div> {`Spent $${totalSpentDollar(expense.entries)}`}</div>
             </BottomSection>
         </Header>
     )
