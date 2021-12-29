@@ -1,6 +1,6 @@
 import {Dispatch, SetStateAction} from "react";
 import {Entry, Expense} from "../App";
-import {Breakdown, ExpenseEntry} from "./ExpenseCardSummary.styles";
+import {Breakdown, ExpenseEntry, ExpenseEntryHistory} from "./ExpenseCardSummary.styles";
 
 interface Props {
     expense: Expense,
@@ -10,11 +10,16 @@ interface Props {
 export const ExpenseCardSummary = ({expense, setSelectedCategory}: Props) => {
 
     const aggregatedSpendStreamMockData = () => {
-        return expense.entries.reduce((aggregate: { [key: string]: number }, entry: Entry) => {
-
+        return Object.values(expense.entries).reduce((aggregate: { [key: string]: any }, entry: Entry) => {
             aggregate[entry.category] = aggregate[entry.category] ?
-                aggregate[entry.category] + entry.spend_amount :
-                entry.spend_amount;
+                {
+                    total_spend_amount: aggregate[entry.category].total_spend_amount + entry.spend_amount,
+                    entries: [...aggregate[entry.category].entries, entry]
+                } :
+                {
+                    total_spend_amount: entry.spend_amount,
+                    entries: [entry]
+                }
 
             return aggregate;
         }, {})
@@ -24,18 +29,32 @@ export const ExpenseCardSummary = ({expense, setSelectedCategory}: Props) => {
         <Breakdown>
             <h3> Breakdown </h3>
             {
-                Object.entries(aggregatedSpendStreamMockData()).map((entry: [string, number], index) => {
-                    return <ExpenseEntry key={index}>
-                        <div>
-                            {entry[0]}
-                        </div>
-                        <div>
-                            ${entry[1]}
-                            <button onClick={() => {setSelectedCategory(entry[0])}}>
-                                +
-                            </button>
-                        </div>
-                    </ExpenseEntry>
+                Object.entries(aggregatedSpendStreamMockData()).map(([categoryName, historyObject]: [string, {total_spend_amount: string, entries: Entry[]}], index) => {
+                    return <div key={index}>
+                        <ExpenseEntry>
+                            <div>
+                                {categoryName}
+                            </div>
+                            <div>
+                                ${historyObject.total_spend_amount}
+                                <button onClick={() => {setSelectedCategory(categoryName)}}>
+                                    +
+                                </button>
+                            </div>
+                        </ExpenseEntry> 
+                        {
+                            historyObject.entries.map((entryHistoryItem: Entry, index: number) => {
+                                return <ExpenseEntryHistory key={index}> 
+                                    <div>
+                                        {entryHistoryItem.note}
+                                    </div>
+                                    <div>
+                                        {entryHistoryItem.spend_amount}
+                                    </div>
+                                </ExpenseEntryHistory>
+                            })
+                        }
+                    </div>
                 })
             }
         </Breakdown>
