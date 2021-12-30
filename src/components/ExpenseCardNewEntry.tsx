@@ -1,20 +1,30 @@
-import React, {Dispatch, SetStateAction, useState} from "react";
-import {Entry, Expense} from "../App";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
+import {Expense} from "../App";
 import { useInsertEntry } from "../hooks/useInsertEntry";
 
 interface Props {
-    setEntriesData?: Dispatch<SetStateAction<Entry[]>>
     expense: Expense
     selectedCategory: string
     setIsNewEntryFormExpanded: Dispatch<SetStateAction<boolean>>
+    setSelectedCategory: Dispatch<SetStateAction<string>>
 }
 
-export const ExpenseCardNewEntry = ({expense, selectedCategory, setIsNewEntryFormExpanded}: Props) => {
+export const ExpenseCardNewEntry = ({expense, selectedCategory, setIsNewEntryFormExpanded, setSelectedCategory}: Props) => {
 
     const [note, setNote] = useState<string>("")
     const [amount, setAmount] = useState<string>("")
-    const [category, setCategory] = useState<string>(selectedCategory || "")
-    const insertEntry = useInsertEntry(() => setIsNewEntryFormExpanded(false));
+    const [category, setCategory] = useState<string>(selectedCategory)
+
+    useEffect(() => { 
+        setCategory(selectedCategory)
+    }, [selectedCategory])
+
+    const insertEntryCallback = () => {
+        setIsNewEntryFormExpanded(false)
+        setSelectedCategory("")
+    }
+
+    const insertEntry = useInsertEntry(insertEntryCallback);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -41,7 +51,9 @@ export const ExpenseCardNewEntry = ({expense, selectedCategory, setIsNewEntryFor
                 <fieldset>
                     {!selectedCategory && <label>
                         <p>Category:</p>
-                        <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} />
+                        <input type="text" value={category} onChange={(e) => {
+                            setCategory(e.target.value)
+                        }} />
                     </label>}
                     <label>
                         <p>Note:</p>

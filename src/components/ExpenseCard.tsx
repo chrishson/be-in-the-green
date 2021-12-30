@@ -11,7 +11,7 @@ export const ExpenseCard = (expense: Expense) => {
     const handleNewEntryFormClick = () => {
         if (selectedCategory) {
             setSelectedCategory("")
-            return;
+            return
         }
         setIsNewEntryFormExpanded(!isNewEntryFormExpanded)
     }
@@ -22,7 +22,7 @@ export const ExpenseCard = (expense: Expense) => {
             <main>
                 <ExpenseCardSummary {...{expense, setSelectedCategory, setIsNewEntryFormExpanded}}/>
                 {
-                    (isNewEntryFormExpanded) && <ExpenseCardNewEntry {...{expense, selectedCategory, setIsNewEntryFormExpanded}}/>
+                    (isNewEntryFormExpanded) && <ExpenseCardNewEntry {...{expense, selectedCategory, setIsNewEntryFormExpanded, setSelectedCategory}}/>
                 }
                 <button onClick={handleNewEntryFormClick}>
                     Add New Category + Entry
