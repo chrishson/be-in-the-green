@@ -18,6 +18,7 @@ export const useGetExpenses = () => {
                   category
                   note
                   spend_amount
+                  created_at
                 }
               }
             }

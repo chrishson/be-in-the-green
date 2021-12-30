@@ -3,16 +3,17 @@ import './App.css';
 import { ExpenseCard } from './components/ExpenseCard';
 
 export interface Entry {
-  id?: string,
-  category: string,
-  note: string,
-  spend_amount: number,
+  id?: string
+  category: string
+  note: string
+  spend_amount: number
   expense_id: string
+  created_at?: string
 }
 
 export interface Expense {
-  name: string,
-  id: string,
+  name: string
+  id: string
   budget: number
   entries: Entry[]
 }

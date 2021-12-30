@@ -1,6 +1,7 @@
 import {Dispatch, SetStateAction} from "react";
 import {Entry, Expense} from "../App";
 import { useDeleteEntry } from "../hooks/useDeleteEntry";
+import { FormatDate } from "../util/FormatDate";
 import {Breakdown, ExpenseEntry, ExpenseEntryHistory} from "./ExpenseCardSummary.styles";
 
 interface Props {
@@ -58,7 +59,14 @@ export const ExpenseCardSummary = ({expense, setSelectedCategory, setIsNewEntryF
                             historyObject.entries.map((entryHistoryItem: Entry, index: number) => {
                                 return <ExpenseEntryHistory key={index}> 
                                     <div>
-                                        {entryHistoryItem.note}
+                                        <div>
+                                            {
+                                                entryHistoryItem.created_at && FormatDate(entryHistoryItem.created_at)
+                                            }
+                                        </div>
+                                        <div>
+                                            {entryHistoryItem.note}
+                                        </div>
                                         <button onClick={() => {deleteEntryHistoryItem(entryHistoryItem.id!)}}>
                                             -- Delete
                                         </button>
