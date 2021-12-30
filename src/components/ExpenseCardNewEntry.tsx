@@ -52,7 +52,6 @@ export const ExpenseCardNewEntry = ({expense, selectedCategory, setIsNewEntryFor
                     {!selectedCategory && <label>
                         <p>Category:</p>
                         <input type="text" value={category} onChange={(e) => {
-                            console.log(e.target.value)
                             setCategory(e.target.value)
                         }} />
                     </label>}
