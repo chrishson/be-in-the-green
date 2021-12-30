@@ -8,14 +8,11 @@ interface Props {
     selectedCategory: string
 }
 
-
 export const ExpenseCardNewEntry = ({expense, selectedCategory}: Props) => {
 
     const [note, setNote] = useState<string>("")
     const [amount, setAmount] = useState<string>("")
     const insertEntry = useInsertEntry();
-
-
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()

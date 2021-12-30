@@ -1,17 +1,12 @@
 import { useQuery } from "react-query";
 import { Expense } from "../App";
+import { FetchUtil } from "../util/FetchUtil";
 
 export const useGetExpenses = () => {
     const EXPENSES_KEY = "expenses";
 
     return useQuery<Expense[], Error>(EXPENSES_KEY, () =>
-      fetch(process.env.REACT_APP_HASURA_API as string, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'x-hasura-admin-secret': process.env.REACT_APP_HASURA_API_SECRET as string
-        },
-        body: JSON.stringify({
+      FetchUtil({
           query: `
             {
               expenses {
@@ -27,8 +22,7 @@ export const useGetExpenses = () => {
               }
             }
           `,
-        }),
-      })
+        })
       .then((res) => res.json())
       .then((res) => {
         return res.data.expenses

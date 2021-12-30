@@ -1,7 +1,10 @@
 import {Entry, Expense} from "../App"
+import { useDeleteAllEntriesByExpenseId } from "../hooks/useDeleteAllEntriesByExpenseId";
 import {BottomSection, Header, ProgressBar, TopSection} from "./ExpenseCardHeader.styles";
 
 export const ExpenseCardHeader = (expense: Expense) => {
+
+    const deleteAllEntries = useDeleteAllEntriesByExpenseId();
     
     const totalSpentDollar = (entries: Entry[]) => {
         return entries.reduce((aggregate: number, entry: Entry) => {
@@ -17,6 +20,10 @@ export const ExpenseCardHeader = (expense: Expense) => {
         return expense.budget - totalSpentDollar(expense.entries);
     }
 
+    const handleClick = () => {
+        deleteAllEntries(expense.id)
+    }
+
     return (
         <Header>
             <TopSection>
@@ -30,6 +37,9 @@ export const ExpenseCardHeader = (expense: Expense) => {
             <BottomSection>
                 <ProgressBar id="determinate"  value={totalSpentPercentage()} max="100"/>
                 <div> {`Spent $${totalSpentDollar(expense.entries)}`}</div>
+                <button onClick={handleClick}>
+                    -- RESET
+                </button>
             </BottomSection>
         </Header>
     )
