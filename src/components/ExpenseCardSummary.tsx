@@ -65,7 +65,9 @@ export const ExpenseCardSummary = ({expense, setSelectedCategory, setIsNewEntryF
                                             }
                                         </div>
                                         <div>
-                                            {entryHistoryItem.note}
+                                            {
+                                                entryHistoryItem.note
+                                            }
                                         </div>
                                         <button onClick={() => {deleteEntryHistoryItem(entryHistoryItem.id!)}}>
                                             -- Delete
