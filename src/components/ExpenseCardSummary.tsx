@@ -1,5 +1,6 @@
 import {Dispatch, SetStateAction} from "react";
 import {Entry, Expense} from "../App";
+import { useDeleteEntry } from "../hooks/useDeleteEntry";
 import {Breakdown, ExpenseEntry, ExpenseEntryHistory} from "./ExpenseCardSummary.styles";
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export const ExpenseCardSummary = ({expense, setSelectedCategory}: Props) => {
+    const deleteEntry = useDeleteEntry();
 
     const aggregatedSpendStreamMockData = () => {
         return Object.values(expense.entries).reduce((aggregate: { [key: string]: any }, entry: Entry) => {
@@ -23,6 +25,10 @@ export const ExpenseCardSummary = ({expense, setSelectedCategory}: Props) => {
 
             return aggregate;
         }, {})
+    }
+
+    const deleteEntryHistoryItem = (id: string) => {
+        deleteEntry(id)
     }
 
     return (
@@ -47,6 +53,9 @@ export const ExpenseCardSummary = ({expense, setSelectedCategory}: Props) => {
                                 return <ExpenseEntryHistory key={index}> 
                                     <div>
                                         {entryHistoryItem.note}
+                                        <button onClick={() => {deleteEntryHistoryItem(entryHistoryItem.id!)}}>
+                                            -- Delete
+                                        </button>
                                     </div>
                                     <div>
                                         {entryHistoryItem.spend_amount}
