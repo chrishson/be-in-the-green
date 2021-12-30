@@ -1,4 +1,9 @@
-export const FetchUtil = (body: any) => {
+interface FetchBody {
+    query: string,
+    variables?: any
+}
+
+export const FetchUtil = (body: FetchBody) => {
     return fetch(process.env.REACT_APP_HASURA_API as string, {
         method: "POST",
         headers: {
