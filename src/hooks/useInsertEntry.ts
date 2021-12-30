@@ -2,8 +2,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { Entry } from "../App";
 import { FetchUtil } from "../util/FetchUtil";
 
-export const useInsertEntry = () => {
-
+export const useInsertEntry = (collapseNewEntryForm: () => void) => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation(
@@ -36,6 +35,7 @@ export const useInsertEntry = () => {
           .then((res) => res.json())
           .then((res) => res.data), {
               onSuccess: () => {
+                collapseNewEntryForm();
                 queryClient.invalidateQueries('expenses', {
                   refetchActive: true,
                   refetchInactive: false

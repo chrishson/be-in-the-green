@@ -6,9 +6,10 @@ import {Breakdown, ExpenseEntry, ExpenseEntryHistory} from "./ExpenseCardSummary
 interface Props {
     expense: Expense,
     setSelectedCategory: Dispatch<SetStateAction<string>>
+    setIsNewEntryFormExpanded: Dispatch<SetStateAction<boolean>>
 }
 
-export const ExpenseCardSummary = ({expense, setSelectedCategory}: Props) => {
+export const ExpenseCardSummary = ({expense, setSelectedCategory, setIsNewEntryFormExpanded}: Props) => {
     const deleteEntry = useDeleteEntry();
 
     const aggregatedSpendStreamMockData = () => {
@@ -31,6 +32,11 @@ export const ExpenseCardSummary = ({expense, setSelectedCategory}: Props) => {
         deleteEntry(id)
     }
 
+    const handleClick = (categoryName: string) => {
+        setSelectedCategory(categoryName)
+        setIsNewEntryFormExpanded(true)
+    }
+
     return (
         <Breakdown>
             <h3> Breakdown </h3>
@@ -43,7 +49,7 @@ export const ExpenseCardSummary = ({expense, setSelectedCategory}: Props) => {
                             </div>
                             <div>
                                 ${historyObject.total_spend_amount}
-                                <button onClick={() => {setSelectedCategory(categoryName)}}>
+                                <button onClick={() => {handleClick(categoryName)}}>
                                     +
                                 </button>
                             </div>
